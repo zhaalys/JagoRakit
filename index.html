@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JagoRakit — CV & Portofolio Profesional</title>
+  <meta name="description" content="Jasa pembuatan CV & portofolio profesional — JagoRakit" />
+  <style>
+    :root{
+      --blue:#0057b8;
+      --yellow:#ffd500;
+      --bg:#ffffff;
+      --muted:#6b7280;
+      --card:#f8fafc;
+      --radius:12px;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 8px 30px rgba(2,6,23,0.08);
+      --ease:cubic-bezier(.2,.9,.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:#0b1220;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* ===================== SPLASH / INTRO ===================== */
+    #splash{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+      background:var(--blue);color:var(--bg);z-index:9999;padding:30px;
+      transition:opacity .6s var(--ease),transform .6s var(--ease);
+    }
+    #splash.hidden{opacity:0;visibility:hidden;transform:scale(.98);}
+    .splash-inner{max-width:980px;text-align:center}
+    .logo{
+      font-weight:800;font-size:2.2rem;letter-spacing:-0.02em;color:var(--yellow);background:transparent;padding:6px 12px;border-radius:8px;display:inline-block
+    }
+    .splash-title{font-size:1.8rem;margin:18px 0 6px}
+    .splash-sub{opacity:.95;color:rgba(255,255,255,.9);max-width:720px;margin:0 auto 18px}
+
+    /* typing effect */
+    .typing{display:inline-block;border-right:3px solid rgba(255,255,255,.9);padding-right:6px;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{border-color:transparent}}
+
+    .splash-cta{display:flex;gap:14px;justify-content:center;margin-top:18px}
+    .btn{background:var(--yellow);color:var(--blue);padding:12px 18px;border-radius:999px;border:none;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.12);transition:transform .18s var(--ease)}
+    .btn.secondary{background:transparent;color:var(--yellow);border:2px solid rgba(255,255,255,.15)}
+    .btn:active{transform:translateY(2px)}
+
+    /* subtle animated shapes */
+    .splash-shapes{position:absolute;inset:0;pointer-events:none}
+    .shape-dot{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--yellow);opacity:.09}
+
+    /* ===================== NAV ===================== */
+    header{position:sticky;top:0;z-index:900;background:var(--bg);border-bottom:1px solid #eef2f6;backdrop-filter:saturate(120%) blur(6px)}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .mark{width:44px;height:44px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;color:var(--yellow);font-weight:800}
+    .brand h1{margin:0;font-size:1.15rem}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
+    .cta-group{display:flex;gap:12px;align-items:center}
+
+    /* ===================== HERO ===================== */
+    .hero{max-width:1200px;margin:28px auto;padding:26px 20px;display:flex;gap:34px;align-items:center}
+    .hero-left{flex:1}
+    .hero-right{flex:1;display:flex;justify-content:center}
+    .hero-card{background:linear-gradient(0deg,rgba(255,255,255,1),rgba(255,255,255,1));border-radius:18px;padding:28px;box-shadow:var(--shadow);border:1px solid #eef3fb}
+    .kicker{display:inline-block;background:var(--yellow);color:var(--blue);padding:6px 12px;border-radius:999px;font-weight:700}
+    .hero-title{font-size:2rem;margin:18px 0 12px}
+    .hero-lead{color:var(--muted);margin-bottom:18px}
+    .features-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .feature-pill{background:#f6f8fb;border-radius:999px;padding:10px 12px;font-weight:600;color:var(--blue);border:1px solid #edf2fb}
+
+    /* Floating CTA */
+    .whatsapp-cta{position:fixed;right:18px;bottom:18px;background:var(--yellow);color:var(--blue);padding:14px;border-radius:999px;box-shadow:0 10px 30px rgba(5,30,80,.12);z-index:950;border:none;font-weight:800}
+
+    /* ===================== SECTIONS ===================== */
+    .section{max-width:1200px;margin:40px auto;padding:0 20px}
+    .section h2{font-size:1.45rem;color:var(--blue);margin-bottom:12px}
+    .grid{display:grid;gap:18px}
+
+    /* Cards */
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid #f0f4f8;box-shadow:0 8px 24px rgba(3,15,45,0.03)}
+
+    /* PRODUCT LIST */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .product{display:flex;flex-direction:column;gap:10px}
+    .product img{width:100%;border-radius:10px;height:160px;object-fit:cover}
+    .product h3{margin:0;font-size:1.05rem}
+    .price{font-weight:800;color:var(--blue)}
+
+    /* PRODUCT DETAIL (modal) */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(6,12,28,0.45);z-index:1200;visibility:hidden;opacity:0;transition:opacity .22s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal-card{background:var(--bg);width:min(980px,96%);border-radius:14px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .slider{position:relative}
+    .slides{display:flex;overflow:hidden;border-radius:10px}
+    .slides img{min-width:100%;height:320px;object-fit:cover;transition:transform .45s var(--ease)}
+    .thumbs{display:flex;gap:8px;margin-top:10px}
+    .thumbs img{height:62px;width:92px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs img.active{border-color:var(--blue)}
+
+    .variant-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .variant{padding:8px 12px;border-radius:10px;border:1px solid #e6eefc;cursor:pointer}
+    .variant.active{background:var(--blue);color:var(--yellow);font-weight:700}
+
+    .buy-row{display:flex;gap:10px;margin-top:16px}
+    .btn-ghost{background:transparent;border:1px dashed #e6eefc;padding:10px 12px;border-radius:10px;cursor:pointer}
+
+    /* TESTIMONIAL CAROUSEL */
+    .testi-wrap{position:relative;overflow:hidden}
+    .testi-track{display:flex;gap:14px;transition:transform .6s var(--ease)}
+    .testi{min-width:280px;background:linear-gradient(0deg,#fff,#fff);padding:18px;border-radius:12px;border:1px solid #f2f6fc}
+    .author{display:flex;gap:12px;align-items:center;margin-top:12px}
+    .author img{width:46px;height:46px;border-radius:50%;object-fit:cover}
+
+    /* Rating & comment */
+    .rating{display:flex;gap:6px;align-items:center}
+    .stars{color:var(--yellow)}
+
+    /* FAQ */
+    .faq-item{border-radius:10px;padding:14px;border:1px solid #eef4fb;background:#fff}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .faq-a{margin-top:10px;display:none;color:var(--muted)}
+
+    /* comment form */
+    .comment-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+    .comment{background:#fff;padding:10px;border-radius:8px;border:1px solid #eef4fb}
+
+    /* footer */
+    footer{background:var(--blue);color:white;padding:40px 20px;margin-top:30px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    footer a{color:#fff;text-decoration:none}
+    .legal{grid-column:1/-1;text-align:center;margin-top:18px;opacity:.9}
+
+    /* misc */
+    .backtop{position:fixed;right:18px;bottom:86px;background:#0b1220;color:var(--yellow);padding:10px;border-radius:999px;border:none}
+    .hidden{display:none}
+
+    /* responsive tweaks */
+    @media (max-width:900px){
+      .hero{flex-direction:column}
+      .modal-card{grid-template-columns:1fr}
+      .slides img{height:260px}
+    }
+
+    /* scroll reveal util */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+    .reveal.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <!-- SPLASH -->
+  <div id="splash">
+    <div class="splash-inner reveal">
+      <div class="logo">JagoRakit</div>
+      <div class="splash-title">Selamat Datang di <span style="color:var(--yellow)">JagoRakit</span></div>
+      <div class="splash-sub">Solusi pembuatan <strong>CV</strong> & <strong>Portofolio</strong> profesional. Siap bantu kamu menonjol di hadapan perekrut.</div>
+      <div style="margin-top:8px"> <span class="typing" id="typing">Desain. Strategi. Peluang.</span></div>
+      <div class="splash-cta">
+        <button class="btn" id="startBtn">Mulai</button>
+        <button class="btn secondary" id="seePromo">Lihat Promo</button>
+      </div>
+    </div>
+    <div class="splash-shapes" aria-hidden>
+      <div class="shape-dot" style="left:8%;top:14%;width:28px;height:28px;opacity:.06"></div>
+      <div class="shape-dot" style="right:10%;top:26%;width:18px;height:18px;opacity:.05"></div>
+      <div class="shape-dot" style="left:22%;bottom:10%;width:34px;height:34px;opacity:.04"></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="mark">JR</div>
+        <div>
+          <h1>JagoRakit</h1>
+          <div style="font-size:.78rem;color:var(--muted)">CV & Portofolio Profesional</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#produk">Produk</a>
+        <a href="#promo">Promo</a>
+        <a href="#testi">Testimoni</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+      <div class="cta-group">
+        <button class="btn" onclick="openWhatsApp('Halo saya mau konsultasi gratis')">Konsultasi Gratis</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-left reveal">
+        <span class="kicker">Terpercaya</span>
+        <h2 class="hero-title">Buat CV & Portofolio yang <span style="color:var(--yellow)">Memenangkan Perhatian</span></h2>
+        <p class="hero-lead">Kami merancang CV & portofolio yang rapi, ATS-friendly, dan menonjolkan keahlianmu. Cocok untuk fresh graduate sampai profesional.</p>
+        <div class="features-row">
+          <div class="feature-pill">Desain Modern</div>
+          <div class="feature-pill">ATS Friendly</div>
+          <div class="feature-pill">Website Portofolio</div>
+        </div>
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+          <button class="btn" onclick="scrollToSection('produk')">Lihat Paket</button>
+          <button class="btn btn-ghost" onclick="openWhatsApp('Halo saya mau tanya paket')">Chat WA</button>
+        </div>
+      </div>
+      <div class="hero-right reveal">
+        <div class="hero-card">
+          <strong>Ringkasan Cepat</strong>
+          <p style="color:var(--muted);margin-top:8px">Pilih paket, kirim data, kami kerjakan. Revisi sesuai paket. Dukungan konsultasi karier tersedia.</p>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+            <div style="flex:1">
+              <div style="display:flex;justify-content:space-between;font-weight:700"><span>Paket C</span><span class="price">Rp250.000</span></div>
+              <div style="height:8px;background:#eef5ff;border-radius:8px;margin-top:8px;overflow:hidden"><div style="width:76%;height:100%;background:var(--blue)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- PROMO / PACKAGES -->
+<section class="section" id="promo">
+<h2>Penawaran & Paket</h2>
+<div class="grid" style="margin-top:12px">
+<div class="card reveal product">
+<h3>Paket A — Starter</h3>
+<p class="muted">CV profesional (1 desain) | 1 revisi | 24 jam pengerjaan</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+<div style="font-weight:800">Rp75.000</div>
+<div style="display:flex;gap:8px">
+<button class="btn" onclick="openProductModal( 'Paket A — Starter',75000,['Minimalis','Formal'],['cv1','cv2','cv3'] )">Lihat</button>
+<button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20pesan%20Paket%20A')">Checkout</button>
+</div>
+</div>
+</div>
+
+
+<div class="card reveal product">
+<h3>Paket B — Profesional</h3>
+<p class="muted">CV + Portofolio sederhana | 2 revisi | 2-3 hari</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+<div style="font-weight:800">Rp150.000</div>
+<div style="display:flex;gap:8px">
+<button class="btn" onclick="openProductModal( 'Paket B — Profesional',150000,['Minimalis','Kreatif','Visual'],['pf1','pf2','pf3'] )">Lihat</button>
+<button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20pesan%20Paket%20B')">Checkout</button>
+</div>
+</div>
+</div>
+
+
+<div class="card reveal product">
+<h3>Paket C — Premium</h3>
+<p class="muted">Full service: CV + Website portofolio + Konsultasi | 3 revisi</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+<div style="font-weight:800">Rp300.000</div>
+<div style="display:flex;gap:8px">
+<button class="btn" onclick="openProductModal( 'Paket C — Premium',300000,['Website','CV Custom'],['full1','full2','full3'] )">Lihat</button>
+<button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20pesan%20Paket%20C')">Checkout</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+    <!-- PRODUCTS LIST (short) -->
+    <section class="section" id="produk">
+      <h2>Produk & Pilihan Paket</h2>
+      <div class="products" style="margin-top:12px">
+        <!-- product 1 -->
+        <div class="card product reveal">
+          <img src="Logo1.jpg" alt="CV Minimalis">
+          <h3>CV Minimalis</h3>
+          <div class="price">Rp75.000</div>
+          <p class="muted">Tampilan rapi, ATS friendly.</p>
+          <div style="margin-top:auto;display:flex;gap:8px">
+            <button class="btn" onclick="openProductModal('CV Minimalis',75000,['PDF','Docx'],['cvmin1','cvmin2'])">Detail</button>
+            <button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20pesan%20CV%20Minimalis')">Checkout</button>
+          </div>
+        </div>
+
+        <!-- product 2 -->
+        <div class="card product reveal">
+          <img src="Produk1.jpg" alt="Portofolio Web">
+          <h3>Website Portofolio</h3>
+          <div class="price">Rp200.000</div>
+          <p class="muted">Situs portofolio responsif, hosting optional.</p>
+          <div style="margin-top:auto;display:flex;gap:8px">
+            <button class="btn" onclick="openProductModal('Website Portofolio',200000,['Satu Halaman','Multi Halaman'],['site1','site2'])">Detail</button>
+            <button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20website%20portofolio')">Checkout</button>
+          </div>
+        </div>
+
+        <!-- product 3 -->
+        <div class="card product reveal">
+          <img src="Produk1.jpg" alt="CV Kreatif">
+          <h3>CV Kreatif</h3>
+          <div class="price">Rp125.000</div>
+          <p class="muted">Visual kuat untuk industri kreatif.</p>
+          <div style="margin-top:auto;display:flex;gap:8px">
+            <button class="btn" onclick="openProductModal('CV Kreatif',125000,['A3','A4'],['cvk1','cvk2'])">Detail</button>
+            <button class="btn btn-ghost" onclick="openWhatsApp('Saya%20mau%20CV%20Kreatif')">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="testi">
+      <h2>Testimoni</h2>
+      <div class="card testi-wrap reveal" style="padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <strong>Suara pelanggan</strong>
+          <div class="rating">Rata-rata: <span class="stars">★★★★★</span></div>
+        </div>
+        <div style="overflow:hidden">
+          <div class="testi-track" id="testiTrack">
+            <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Ceru</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Beni</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Alya</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"Proses cepat dan komunikasinya jelas."</p>
+              <div class="author"><img src="Produk1.jpg" alt="B"><div><strong>Budi</strong><div style="font-size:.85rem;color:var(--muted)">Frontend Dev</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"Portofolio websitenya bikin klien tertarik. Highly recommended."</p>
+              <div class="author"><img src="Produk1.jpg" alt="C"><div><strong>Chika</strong><div style="font-size:.85rem;color:var(--muted)">Photographer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+             <div class="testi">
+              <p>"CV saya langsung dipanggil wawancara — recommended!"</p>
+              <div class="author"><img src="Produk1.jpg" alt="A"><div><strong>Sei</strong><div style="font-size:.85rem;color:var(--muted)">UI/UX Designer</div></div></div>
+            </div>
+            <div class="testi">
+              <p>"Revisi sampai pas, worth it banget untuk fresh graduate."</p>
+              <div class="author"><img src="Produk1.jpg" alt="D"><div><strong>Dimas</strong><div style="font-size:.85rem;color:var(--muted)">Data Analyst</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA & Comment -->
+    <section class="section">
+      <div class="grid" style="grid-template-columns:2fr 1fr;gap:18px">
+        <div class="card reveal">
+          <h2>Tinggalkan Komentar / Review</h2>
+          <p class="muted">Kirimkan pengalamanmu setelah memakai jasa kami.</p>
+          <form id="commentForm" style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+            <input name="name" placeholder="Nama" required style="padding:10px;border-radius:8px;border:1px solid #eef4fb" />
+            <textarea name="message" placeholder="Kesan & pesan" rows="4" required style="padding:10px;border-radius:8px;border:1px solid #eef4fb"></textarea>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select name="rating" style="padding:8px;border-radius:8px;border:1px solid #eef4fb">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+              </select>
+              <button class="btn" type="submit">Kirim</button>
+            </div>
+          </form>
+        </div>
+        <div class="card reveal">
+          <h2>Komentar Terbaru</h2>
+          <div class="comment-list" id="commentsArea">
+            <div class="comment"><strong>Alya</strong><div style="font-size:.9rem;color:var(--muted)">CV-nya bagus! ★★★★★</div></div>
+            <div class="comment"><strong>Budi</strong><div style="font-size:.9rem;color:var(--muted)">Cepat dan profesional. ★★★★☆</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- FAQ -->
+<section class="section" id="faq">
+  <h2>FAQ</h2>
+  <div style="display:grid;gap:12px;margin-top:12px">
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bagaimana cara memesan?</div><div>+</div></div>
+      <div class="faq-a">Pilih paket > kirim data melalui WhatsApp > kami proses.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Metode pembayaran?</div><div>+</div></div>
+      <div class="faq-a">Transfer bank / e-wallet / pembayaran via marketplace (tergantung promosi).</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Berapa lama proses pengerjaan?</div><div>+</div></div>
+      <div class="faq-a">Umumnya 1–3 hari kerja, tergantung paket & antrian.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apa ada garansi?</div><div>+</div></div>
+      <div class="faq-a">Kami menyediakan revisi sesuai paket. Revisi tambahan berbayar.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Butuh data apa?</div><div>+</div></div>
+      <div class="faq-a">CV lama, riwayat pendidikan, pengalaman, portfolio (jika ada), foto profesional (opsional).</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah file bisa diedit ulang?</div><div>+</div></div>
+      <div class="faq-a">Ya, kami kirim file dalam format Word/Canva (sesuai paket) agar bisa diedit kembali.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa request desain custom?</div><div>+</div></div>
+      <div class="faq-a">Bisa, tinggal kirim referensi desain atau konsep yang diinginkan.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apa bedanya paket Basic & Premium?</div><div>+</div></div>
+      <div class="faq-a">Basic untuk desain sederhana, Premium mencakup desain lebih kreatif & revisi lebih banyak.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah ada contoh desain?</div><div>+</div></div>
+      <div class="faq-a">Ya, silakan lihat di halaman produk kami atau minta katalog via WhatsApp.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah semua data saya aman?</div><div>+</div></div>
+      <div class="faq-a">Data Anda dijamin aman dan tidak akan dibagikan ke pihak lain.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa revisi berapa kali?</div><div>+</div></div>
+      <div class="faq-a">Tergantung paket: Basic 1x revisi, Premium 3x revisi, Unlimited dengan biaya tambahan.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa buat portofolio juga?</div><div>+</div></div>
+      <div class="faq-a">Ya, selain CV kami juga bisa membuat portofolio profesional & modern.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa pakai bahasa Inggris?</div><div>+</div></div>
+      <div class="faq-a">Bisa, kami menyediakan opsi CV bilingual (Indonesia & Inggris).</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa cetak fisik?</div><div>+</div></div>
+      <div class="faq-a">Untuk saat ini hanya file digital. Cetak bisa dilakukan di percetakan terdekat.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>File dikirim dalam format apa?</div><div>+</div></div>
+      <div class="faq-a">PDF untuk hasil akhir, Word/Canva/AI tergantung paket yang dipilih.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apa ada diskon untuk mahasiswa?</div><div>+</div></div>
+      <div class="faq-a">Ya, ada promo khusus mahasiswa/fresh graduate. Hubungi admin untuk detail.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa pesan untuk banyak orang?</div><div>+</div></div>
+      <div class="faq-a">Bisa, misalnya untuk teman sekelas atau tim. Ada harga khusus untuk order grup.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apa ada paket langganan?</div><div>+</div></div>
+      <div class="faq-a">Ya, untuk HR/recruiter yang butuh banyak desain CV bisa ambil paket corporate.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa tambah foto di CV?</div><div>+</div></div>
+      <div class="faq-a">Bisa, foto bisa disertakan atau dibiarkan polos sesuai preferensi Anda.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah desain sesuai ATS?</div><div>+</div></div>
+      <div class="faq-a">Ya, kami menyediakan desain ATS-friendly agar mudah terbaca sistem rekrutmen.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa revisi setelah jadi?</div><div>+</div></div>
+      <div class="faq-a">Bisa, selama masih dalam masa revisi sesuai paket. Lewat masa revisi ada biaya tambahan.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah bisa buat cover letter?</div><div>+</div></div>
+      <div class="faq-a">Ya, kami juga menyediakan jasa pembuatan cover letter profesional.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bisa pakai desain untuk LinkedIn?</div><div>+</div></div>
+      <div class="faq-a">Bisa, kami juga bisa bantu optimasi tampilan profil LinkedIn Anda.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Apakah hasil bisa dipakai untuk beasiswa?</div><div>+</div></div>
+      <div class="faq-a">Ya, desain CV bisa disesuaikan untuk keperluan akademik/beasiswa.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)"><div>Bagaimana jika saya belum punya pengalaman kerja?</div><div>+</div></div>
+      <div class="faq-a">Kami bantu tonjolkan pendidikan, skill, & pengalaman organisasi agar CV tetap menarik.</div>
+    </div>
+
+  </div>
+</section>
+
+    <!-- KONSULTASI -->
+    <section class="section" id="kontak">
+      <h2>Konsultasi Gratis</h2>
+      <div class="card reveal">
+        <p class="muted">Ambil waktu 15 menit konsultasi untuk strategi karier dan optimasi CV.</p>
+        <div style="margin-top:12px;display:flex;gap:10px">
+          <button class="btn" onclick="openWhatsApp('Saya%20mau%20konsultasi%20gratis')">Jadwalkan via WhatsApp</button>
+          <button class="btn btn-ghost" onclick="scrollToSection('faq')">Lihat FAQ</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL PRODUCT DETAIL -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-card card">
+      <div>
+        <div class="slider">
+          <div class="slides" id="slidesContainer">
+            <img src="Logo1.jpg" alt="slide11">
+            <img src="Produk1.jpg" alt="slide2">
+            <img src="Produk1.jpg" alt="slide3">
+          </div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+      <div>
+        <h3 id="modalTitle">Judul Produk</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center"><div class="price" id="modalPrice">Rp0</div><div id="modalSKU" style="font-size:.85rem;color:var(--muted)">SKU: --</div></div>
+        <p class="muted" id="modalDesc">Deskripsi singkat produk...</p>
+        <div>
+          <div style="font-weight:700;margin-top:8px">Varian</div>
+          <div class="variant-list" id="variantList"></div>
+        </div>
+        <div class="buy-row">
+          <button class="btn" id="buyNow">Checkout via WhatsApp</button>
+          <button class="btn btn-ghost" onclick="closeModal()">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>Tentang JagoRakit</h4>
+        <p>Kami menyediakan layanan pembuatan CV & portofolio profesional yang membantu kandidat menonjol di proses rekrutmen.</p>
+      </div>
+      <div>
+        <h4>Produk</h4>
+        <a href="#produk">CV Minimalis</a>
+        <a href="#produk">CV Kreatif</a>
+        <a href="#produk">Website Portofolio</a>
+      </div>
+      <div>
+        <h4>Dukungan</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#kontak">Konsultasi</a>
+        <a href="#testi">Testimoni</a>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <p>Email: info@jagorakit.com</p>
+        <p>WhatsApp: +62 812 3456 7890</p>
+        <p>Alamat: Jakarta, Indonesia</p>
+      </div>
+    </div>
+    <div class="legal">© 2025 JagoRakit — Semua Hak Dilindungi.</div>
+  </footer>
+
+  <!-- FLOATING ACTIONS -->
+  <button class="whatsapp-cta" title="Chat via WhatsApp" onclick="openWhatsApp('Halo saya mau tanya')">WA</button>
+  <button class="backtop hidden" id="backtop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    /* ======= Utilities ======= */
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    /* SPLASH */
+    const splash = $('#splash');
+    const startBtn = $('#startBtn');
+    const seePromo = $('#seePromo');
+    startBtn.addEventListener('click', ()=>{
+      splash.classList.add('hidden');
+      setTimeout(()=>splash.style.display='none',700);
+      setTimeout(()=>document.getElementById('home').scrollIntoView({behavior:'smooth'}),100);
+    });
+    seePromo.addEventListener('click', ()=>{ splash.classList.add('hidden'); setTimeout(()=>splash.style.display='none',700); setTimeout(()=>document.getElementById('promo').scrollIntoView({behavior:'smooth'}),120); });
+
+    // typing phrase rotation
+    const typingEl = $('#typing');
+    const phrases = ['Desain. Strategi. Peluang.','CV ATS-Friendly.','Portofolio yang Menarik.'];
+    let pIndex=0; let char=0; let deleting=false;
+    function tick(){
+      const full = phrases[pIndex];
+      if(!deleting){ typingEl.textContent = full.slice(0,char+1); char++; if(char===full.length){deleting=true;setTimeout(tick,1200);return;} }
+      else{ typingEl.textContent = full.slice(0,char-1); char--; if(char===0){deleting=false;pIndex=(pIndex+1)%phrases.length;} }
+      setTimeout(tick,deleting?60:80);
+    }
+    tick();
+
+    /* SCROLL REVEAL */
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); observer.unobserve(e.target); } });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    /* BACK TO TOP */
+    const backtop = $('#backtop');
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY>600) backtop.classList.remove('hidden'); else backtop.classList.add('hidden');
+    });
+
+    /* TESTIMONIAL CAROUSEL (auto) */
+    const track = $('#testiTrack');
+    let testiIndex=0;
+    function advanceTesti(){
+      const items = track.children.length; testiIndex=(testiIndex+1)%items; track.style.transform = `translateX(-${testiIndex*304}px)`; }
+    let testiInterval = setInterval(advanceTesti,3500);
+    // pause on hover
+    track.parentElement.addEventListener('mouseenter', ()=>clearInterval(testiInterval));
+    track.parentElement.addEventListener('mouseleave', ()=>testiInterval=setInterval(advanceTesti,3500));
+
+    /* PRODUCT MODAL + SLIDER */
+    const modal = $('#modal');
+    const slidesContainer = $('#slidesContainer');
+    const thumbs = $('#thumbs');
+    const modalTitle = $('#modalTitle');
+    const modalPrice = $('#modalPrice');
+    const variantList = $('#variantList');
+    const buyNow = $('#buyNow');
+    let currentSlide = 0;
+
+    function openProductModal(title,price,variants,images){
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      modalTitle.textContent = title; modalPrice.textContent = 'Rp' + (price).toLocaleString('id-ID');
+      // set slides
+      slidesContainer.innerHTML = images.map((i,idx)=>`<img src="Logo1.jpg=${encodeURIComponent(title+' '+(idx+1))}" alt="slide${idx}" data-idx="${idx}">`).join('');
+      // thumbs
+      thumbs.innerHTML = images.map((i,idx)=>`<img src="Logo1.jpg${encodeURIComponent('Thumb '+(idx+1))}" data-idx="${idx}" class="${idx===0?'active':''}">`).join('');
+      currentSlide=0; updateSlide();
+      // variants
+      variantList.innerHTML = variants.map((v,idx)=>`<div class="variant ${idx===0?'active':''}" data-variant="${v}">${v}</div>`).join('');
+      // buy handler
+     buyNow.onclick = ()=>{ 
+  const variant = variantList.querySelector('.variant.active')?.dataset.variant || ''; 
+  openWhatsApp(`Saya mau memesan ${title} ${variant}`);
+};
+      // add thumbs listener
+      $$('#thumbs img').forEach(t=>t.addEventListener('click', e=>{ currentSlide=parseInt(e.target.dataset.idx); updateSlide(); }));
+      $$('#variantList .variant').forEach(v=>v.addEventListener('click', e=>{ $$('#variantList .variant').forEach(x=>x.classList.remove('active')); e.currentTarget.classList.add('active'); }));
+    }
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+    modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+    function updateSlide(){ const w = slidesContainer.children[0]?.clientWidth || 0; slidesContainer.style.transform = `translateX(-${currentSlide*w}px)`; $$('#thumbs img').forEach((t,i)=>t.classList.toggle('active',i===currentSlide)); }
+    window.addEventListener('resize', updateSlide);
+
+    /* simple slide prev/next could be added */
+
+    /* COMMENT FORM (local only) */
+    $('#commentForm').addEventListener('submit', e=>{
+      e.preventDefault(); const fm = e.target; const name = fm.name.value.trim(), msg = fm.message.value.trim(), rating = fm.rating.value;
+      if(!name||!msg) return;
+      const el = document.createElement('div'); el.className='comment'; el.innerHTML=`<strong>${escapeHtml(name)}</strong><div style="font-size:.9rem;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted') || '#6b7280'}">${escapeHtml(msg)} — ${'★'.repeat(rating)}</div>`;
+      $('#commentsArea').prepend(el); fm.reset();
+    });
+    function escapeHtml(s){return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]);}
+
+    /* FAQ toggle */
+    function toggleFaq(el){ const a = el.nextElementSibling; const open = a.style.display==='block'; a.style.display = open ? 'none' : 'block'; el.querySelector('div:last-child').textContent = open?'+':'−'; }
+    window.toggleFaq = toggleFaq;
+
+    /* open WhatsApp */
+    function openWhatsApp(msg){ const phone='62895610020009'; const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`; window.open(url,'_blank'); }
+    window.openWhatsApp = openWhatsApp;
+
+    /* scroll to section */
+    function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+    window.scrollToSection = scrollToSection;
+
+    /* small accessibility: close modal with Esc */
+    window.addEventListener('keydown', e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeModal(); } });
+
+    /* initialize reveal on load for items already visible */
+    document.addEventListener('DOMContentLoaded', ()=>{ $$('.reveal').forEach(el=>{ if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('show'); }); });
+
+    /* Expose openProductModal */
+    window.openProductModal = openProductModal;
+
+    /* subtle parallax for shapes (optional) */
+    document.addEventListener('mousemove', e=>{
+      const s = document.querySelectorAll('.shape-dot'); s.forEach((el,i)=>{ const speed = (i+1)*0.002; el.style.transform = `translate(${(e.clientX - window.innerWidth/2)*speed}px, ${(e.clientY - window.innerHeight/2)*speed}px)`; });
+    });
+
+    // Auto-rotate slides inside modal
+    let modalAuto;
+    modal.addEventListener('mouseenter', ()=>{ if(modalAuto) clearInterval(modalAuto); });
+    modal.addEventListener('mouseleave', ()=>{ modalAuto = setInterval(()=>{ currentSlide = (currentSlide+1) % (slidesContainer.children.length || 1); updateSlide(); }, 2800); });
+
+  </script>
+</body>
+</html>
