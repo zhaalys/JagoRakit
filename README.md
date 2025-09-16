@@ -1,5 +1,4 @@
-## 📸 Screenshot
-
+## JagoRakit
 ![Screenshot 1](Screenshot%202025-09-15%20164933.png)  
 ![Screenshot 2](Screenshot%202025-09-15%20164955.png)  
 ![Screenshot 3](Screenshot%202025-09-15%20164943.png)
