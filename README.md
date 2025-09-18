@@ -3,7 +3,7 @@
 ![Screenshot 2](Screenshot%202025-09-15%20164955.png)  
 ![Screenshot 3](Screenshot%202025-09-15%20164943.png)
 
-JagoRakit – Jasa Pembuatan CV & Portofolio Profesional
+JagoRakit – Jasa Pembuatan CV & Portofolio Profesional.
 
 JagoRakit menyediakan layanan pembuatan CV dan portofolio yang dirancang untuk menonjolkan pengalaman, keahlian, dan prestasi profesional secara jelas dan elegan. Setiap dokumen dibuat dengan pendekatan personal, fokus pada kualitas desain, dan kemudahan pembacaan.
 
